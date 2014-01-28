@@ -1,0 +1,7 @@
+name: flagger
+author: Wilker Lúcio <wilkerlucio@gmail.com>
+version: 0.0.1
+homepage: https://github.com/wilkerlucio/dart-flagger
+description: Flag mixins for object annotation
+dev_dependencies:
+  barrier: '> 0.0.1'
