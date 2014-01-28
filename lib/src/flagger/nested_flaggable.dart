@@ -18,4 +18,10 @@ abstract class NestedFlaggable<T> implements Flagish<T> {
   void setFlag(Symbol key, T value) {
     __flags[key] = value;
   }
+
+  void updateFlags(Map<Symbol, T> map) {
+    map.forEach((Symbol key, T value) {
+      setFlag(key, value);
+    });
+  }
 }

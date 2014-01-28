@@ -33,7 +33,18 @@ void main() {
 
         it("returns null instead of default if key is set as null", () {
           SimpleClass obj = new SimpleClass();
+          obj.setFlag(#name, null);
           expect(obj.getFlag(#name, "unknow")) == null;
+        });
+      });
+
+      describe("#updateFlags", () {
+        it("updates flags from a Map", () {
+          SimpleClass obj = new SimpleClass();
+          obj.updateFlags({#name: "Mr White", #job: "Alchemist"});
+
+          expect(obj.getFlag(#name)) == "Mr White";
+          expect(obj.getFlag(#job)) == "Alchemist";
         });
       });
     });
@@ -59,6 +70,17 @@ void main() {
           expect(child2.getFlag(#parentMe)) == "parent";
           expect(child2.getFlag(#onRoot)) == "root";
           expect(child2.getFlag(#notdef)) == null;
+          expect(child2.getFlag(#notdef, "default")) == "default";
+        });
+      });
+
+      describe("#updateFlags", () {
+        it("updates flags from a Map", () {
+          NestedFlaggable obj = new NestableClass();
+          obj.updateFlags({#name: "Mr White", #job: "Alchemist"});
+
+          expect(obj.getFlag(#name)) == "Mr White";
+          expect(obj.getFlag(#job)) == "Alchemist";
         });
       });
     });
