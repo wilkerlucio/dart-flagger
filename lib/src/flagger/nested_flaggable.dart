@@ -8,11 +8,10 @@ abstract class NestedFlaggable<T> implements Flagish<T> {
   T getFlag(Symbol key, [defaultValue = null]) {
     if (__flags.containsKey(key))
       return __flags[key];
-    else
-      if (parent == null)
-        return defaultValue;
+    else if (parent == null)
+      return defaultValue;
 
-      return parent.getFlag(key, defaultValue);
+    return parent.getFlag(key, defaultValue);
   }
 
   void setFlag(Symbol key, T value) {
