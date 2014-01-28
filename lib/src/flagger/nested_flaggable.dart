@@ -20,6 +20,9 @@ abstract class NestedFlaggable<T> implements Flagish<T> {
   }
 
   void updateFlags(Map<Symbol, T> map) {
+    if (map == null)
+      return;
+
     map.forEach((Symbol key, T value) {
       setFlag(key, value);
     });

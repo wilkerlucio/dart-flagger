@@ -46,6 +46,11 @@ void main() {
           expect(obj.getFlag(#name)) == "Mr White";
           expect(obj.getFlag(#job)) == "Alchemist";
         });
+
+        it("silent does nothing when null is passed", () {
+          SimpleClass obj = new SimpleClass();
+          obj.updateFlags(null);
+        });
       });
     });
 
@@ -81,6 +86,11 @@ void main() {
 
           expect(obj.getFlag(#name)) == "Mr White";
           expect(obj.getFlag(#job)) == "Alchemist";
+        });
+
+        it("silent does nothing when null is passed", () {
+          NestedFlaggable obj = new NestableClass();
+          obj.updateFlags(null);
         });
       });
     });
