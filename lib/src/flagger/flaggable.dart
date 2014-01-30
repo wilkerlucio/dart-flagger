@@ -7,6 +7,10 @@ class Flaggable<T> implements Flagish<T> {
     return __flags.containsKey(key) ? __flags[key] : defaultValue;
   }
 
+  Map<Symbol, T> getFlags() {
+    return __flags;
+  }
+
   void setFlag(Symbol key, T value) {
     __flags[key] = value;
   }

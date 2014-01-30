@@ -14,6 +14,18 @@ abstract class NestedFlaggable<T> implements Flagish<T> {
     return parent.getFlag(key, defaultValue);
   }
 
+  Map<Symbol, T> getFlags() {
+    Map<Symbol, T> flags = {};
+
+    for (NestedFlaggable<T> obj in ancestorsChain.reversed) {
+      obj.__flags.forEach((Symbol key, T value) {
+        flags[key] = value;
+      });
+    }
+
+    return flags;
+  }
+
   void setFlag(Symbol key, T value) {
     __flags[key] = value;
   }
@@ -25,5 +37,17 @@ abstract class NestedFlaggable<T> implements Flagish<T> {
     map.forEach((Symbol key, T value) {
       setFlag(key, value);
     });
+  }
+
+  List<NestedFlaggable<T>> get ancestorsChain {
+    List<NestedFlaggable<T>> chain = [];
+    NestedFlaggable<T> current = this;
+
+    do {
+      chain.add(current);
+      current = current.parent;
+    } while (current != null);
+
+    return chain;
   }
 }

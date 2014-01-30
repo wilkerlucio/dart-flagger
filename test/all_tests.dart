@@ -24,6 +24,24 @@ void main() {
         });
       });
 
+      describe("#getFlags", () {
+        it("returns empty map when not flags are set", () {
+          Flaggable obj = new SimpleClass();
+          expect(obj.getFlags().isEmpty) == true;
+        });
+
+        it("returns the flags that are current set", () {
+          Flaggable obj = new SimpleClass()
+            ..setFlag(#name, "hello")
+            ..setFlag(#other, "value");
+
+          Map<Symbol, String> flags = obj.getFlags();
+
+          expect(flags[#name]) == "hello";
+          expect(flags[#other]) == "value";
+        });
+      });
+
       describe("#setFlag", () {
         it("set's a flag to recover later", () {
           Flaggable obj = new SimpleClass();
@@ -76,6 +94,23 @@ void main() {
           expect(child2.getFlag(#onRoot)) == "root";
           expect(child2.getFlag(#notdef)) == null;
           expect(child2.getFlag(#notdef, "default")) == "default";
+        });
+      });
+
+      describe("#getFlags", () {
+        it("recursive get flags combined with all parents", () {
+
+          Flagish root = new NestableClass();
+          Flagish child1 = new NestableClass(root);
+
+          root.setFlag(#first, "root");
+          root.setFlag(#second, "onRoot");
+          child1.setFlag(#first, "child");
+
+          Map<Symbol, String> flags = child1.getFlags();
+
+          expect(flags[#first]) == "child";
+          expect(flags[#second]) == "onRoot";
         });
       });
 
